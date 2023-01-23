@@ -23,5 +23,6 @@
 VR버전.   
 
 # 개발 일지  
-[20230120] 배경 에셋 가구 애니메이션
-[20230123] House에셋 카테고리 정리, InteractRaycast 레이어 변경 (Layer8 -> Layer7), 프리팹 수정, Video/gif 업로드
+[20230120] 배경 에셋 가구 애니메이션  
+[20230123] House에셋 카테고리 정리, InteractRaycast 레이어 변경 (Layer8 -> Layer7), 프리팹 수정, Video/gif 업로드  
+[20230123] Keyboard Input매니저, define 작성, forward 테스트, Video/gif 업로드  
