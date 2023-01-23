@@ -13231,6 +13231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Fridge
       objectReference: {fileID: 0}
+    - target: {fileID: 112408, guid: e8926eaa3588748e4ae5846318659c35, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 481192, guid: e8926eaa3588748e4ae5846318659c35, type: 3}
       propertyPath: m_RootOrder
       value: 0
