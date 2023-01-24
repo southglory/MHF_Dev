@@ -9,16 +9,24 @@ public class PlayerController : BaseController
     int _mask = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Monster);
 
     PlayerStat _stat;
+    private CapsuleCollider coll;
+    private Rigidbody playerRigidbody;
     bool _stopSkill = false;
 
     float _speed = 3.0f;
     float _yAngle = 0.0f;
-
+    
 
     public override void Init()
     {
+        coll = gameObject.GetComponent<CapsuleCollider>();
+        PhysicMaterial material = new PhysicMaterial();
+        material.dynamicFriction = 1;
+        coll.material = material;
+
         WorldObjectType = Define.WorldObject.Player;
         _stat = gameObject.GetComponent<PlayerStat>();
+        playerRigidbody = gameObject.GetComponent<Rigidbody>();
 		Managers.Input.KeyAction -= OnKeyEvent;
 		Managers.Input.KeyAction += OnKeyEvent;
 
@@ -83,6 +91,21 @@ public class PlayerController : BaseController
             case Define.KeyEvent.W_KeyPress:
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
                 transform.position += _speed * Time.deltaTime * Vector3.forward;
+                break;
+            case Define.KeyEvent.S_KeyPress:
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
+                transform.position += _speed * Time.deltaTime * Vector3.back;
+                break;
+            case Define.KeyEvent.A_KeyPress:
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
+                transform.position += _speed * Time.deltaTime * Vector3.left;
+                break;
+            case Define.KeyEvent.D_KeyPress:
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
+                transform.position += _speed * Time.deltaTime * Vector3.right;
+                break;
+            case Define.KeyEvent.Space_KeyPress:
+                playerRigidbody.AddForce(0f, _speed * Time.deltaTime, 0f);
                 break;
         }
     }       
