@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Windows;
 
 public class PlayerController : BaseController
 {
@@ -11,11 +12,15 @@ public class PlayerController : BaseController
     PlayerStat _stat;
     private CapsuleCollider coll;
     private Rigidbody playerRigidbody;
+
     bool _stopSkill = false;
 
+    float _JumpPower = 3.0f;
     float _speed = 3.0f;
     float _yAngle = 0.0f;
-    
+
+    float xInput;
+    float yInput;
 
     public override void Init()
     {
@@ -80,7 +85,6 @@ public class PlayerController : BaseController
                 break;
             case Define.State.Skill:
                 break;
-
         }
     }
 
@@ -88,24 +92,15 @@ public class PlayerController : BaseController
     {
         switch (evt)
         {
-            case Define.KeyEvent.W_KeyPress:
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
-                transform.position += _speed * Time.deltaTime * Vector3.forward;
+            case Define.KeyEvent.Space_KeyDown:
+                //transform.position += 
+                //Vector3 _ = new Vector3(0f, _jumpSpeed * Time.deltaTime, 0f) - transform.position;
+                //transform.Translate(Vector3.Lerp(transform.position, _, 0.2f));
+                //playerRigidbody.transform.Translate(_);
+                playerRigidbody.AddForce(Vector3.up * _JumpPower, ForceMode.Impulse);
                 break;
-            case Define.KeyEvent.S_KeyPress:
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
-                transform.position += _speed * Time.deltaTime * Vector3.back;
-                break;
-            case Define.KeyEvent.A_KeyPress:
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
-                transform.position += _speed * Time.deltaTime * Vector3.left;
-                break;
-            case Define.KeyEvent.D_KeyPress:
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
-                transform.position += _speed * Time.deltaTime * Vector3.right;
-                break;
-            case Define.KeyEvent.Space_KeyPress:
-                playerRigidbody.AddForce(0f, _speed * Time.deltaTime, 0f);
+            case Define.KeyEvent.Wasd_KeyPress:
+                playerRigidbody.position += Managers.Input.xzInput * _speed * Time.deltaTime;
                 break;
         }
     }       

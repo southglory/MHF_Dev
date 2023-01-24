@@ -12,168 +12,102 @@ public class InputManager
     bool _MousePressed = false;
     float _MousePressedTime = 0;
 
-    bool _W_KeyPressed = false;
-    float _W_KeyPressedTime = 0;
-    bool _S_KeyPressed = false;
-    float _S_KeyPressedTime = 0;
-    bool _A_KeyPressed = false;
-    float _A_KeyPressedTime = 0;
-    bool _D_KeyPressed = false;
-    float _D_KeyPressedTime = 0;
     bool _Space_KeyPressed = false;
     float _Space_KeyPressedTime = 0;
+
+    bool _Wasd_KeyPressed = false;
+    float _Wasd_KeyPressedTime = 0;
+
+    float xInput = 0f;
+    float zInput = 0f;
+    public Vector3 xzInput = Vector3.zero;
 
     public void OnUpdate()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        //if (Input.anyKey && KeyAction != null)
-        //    KeyAction.invoke();
-
+        // 키보드
         if (KeyAction != null)
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                if (!_W_KeyPressed)
-                {
-                    KeyAction.Invoke(Define.KeyEvent.W_KeyDown);
-                    _W_KeyPressedTime = Time.time;
-                    Debug.Log("W_Down");
-                }
-                KeyAction.Invoke(Define.KeyEvent.W_KeyPress);
-                _W_KeyPressed = true;
-                Debug.Log("W_Pressed " + _W_KeyPressed.ToString());
-            }
-            else
-            {
-                if (_W_KeyPressed)
-                {
-                    if (Time.time < _W_KeyPressedTime + 0.2f)
-                    {
-                        KeyAction.Invoke(Define.KeyEvent.W_KeyClick);
-                        Debug.Log("W_Clicked");
-                    }
-                    KeyAction.Invoke(Define.KeyEvent.W_KeyUp);
-                    Debug.Log("W_Up");
-                }
-                _W_KeyPressed = false;
-                _W_KeyPressedTime = 0;
-            }
-            
-            if (Input.GetKey(KeyCode.S))
-            {
-                if (!_S_KeyPressed)
-                {
-                    KeyAction.Invoke(Define.KeyEvent.S_KeyDown);
-                    _S_KeyPressedTime = Time.time;
-                    Debug.Log("S_Down");
-                }
-                KeyAction.Invoke(Define.KeyEvent.S_KeyPress);
-                _S_KeyPressed = true;
-                Debug.Log("S_Pressed " + _S_KeyPressed.ToString());
-            }
-            else
-            {
-                if (_S_KeyPressed)
-                {
-                    if (Time.time < _S_KeyPressedTime + 0.2f)
-                    {
-                        KeyAction.Invoke(Define.KeyEvent.S_KeyClick);
-                        Debug.Log("S_Clicked");
-                    }
-                    KeyAction.Invoke(Define.KeyEvent.S_KeyUp);
-                    Debug.Log("S_Up");
-                }
-                _S_KeyPressed = false;
-                _S_KeyPressedTime = 0;
-            }
-            
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (!_A_KeyPressed)
-                {
-                    KeyAction.Invoke(Define.KeyEvent.A_KeyDown);
-                    _A_KeyPressedTime = Time.time;
-                    Debug.Log("A_Down");
-                }
-                KeyAction.Invoke(Define.KeyEvent.A_KeyPress);
-                _A_KeyPressed = true;
-                Debug.Log("A_Pressed " + _A_KeyPressed.ToString());
-            }
-            else
-            {
-                if (_A_KeyPressed)
-                {
-                    if (Time.time < _A_KeyPressedTime + 0.2f)
-                    {
-                        KeyAction.Invoke(Define.KeyEvent.A_KeyClick);
-                        Debug.Log("A_Clicked");
-                    }
-                    KeyAction.Invoke(Define.KeyEvent.A_KeyUp);
-                    Debug.Log("A_Up");
-                }
-                _A_KeyPressed = false;
-                _A_KeyPressedTime = 0;
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (!_D_KeyPressed)
-                {
-                    KeyAction.Invoke(Define.KeyEvent.D_KeyDown);
-                    _D_KeyPressedTime = Time.time;
-                    Debug.Log("D_Down");
-                }
-                KeyAction.Invoke(Define.KeyEvent.D_KeyPress);
-                _D_KeyPressed = true;
-                Debug.Log("D_Pressed " + _A_KeyPressed.ToString());
-            }
-            else
-            {
-                if (_D_KeyPressed)
-                {
-                    if (Time.time < _D_KeyPressedTime + 0.2f)
-                    {
-                        KeyAction.Invoke(Define.KeyEvent.D_KeyClick);
-                        Debug.Log("D_Clicked");
-                    }
-                    KeyAction.Invoke(Define.KeyEvent.D_KeyUp);
-                    Debug.Log("D_Up");
-                }
-                _D_KeyPressed = false;
-                _D_KeyPressedTime = 0;
-            }
-
+            // 점프, space키가 눌리면,
             if (Input.GetKey(KeyCode.Space))
             {
+                // 이전에 점프키가 안눌려 있었으면 KeyDown 이벤트를 Invoke.
                 if (!_Space_KeyPressed)
                 {
                     KeyAction.Invoke(Define.KeyEvent.Space_KeyDown);
-                    _D_KeyPressedTime = Time.time;
+                    _Space_KeyPressedTime = Time.time;
                     Debug.Log("Space_Down");
                 }
+                // 그리고 점프키Press 이벤트를 Invoke
                 KeyAction.Invoke(Define.KeyEvent.Space_KeyPress);
-                _D_KeyPressed = true;
+                _Space_KeyPressed = true;
                 Debug.Log("Space_Pressed " + _Space_KeyPressed.ToString());
             }
+            // 그렇지 않고 점프키에 값이 안 들어왔으면
             else
             {
+                // 이전에 점프키가 눌려 있었으면
                 if (_Space_KeyPressed)
                 {
+                    // 0.2초보다 짧게 눌렸다면 KeyClick 이벤트를 Invoke.
                     if (Time.time < _Space_KeyPressedTime + 0.2f)
                     {
                         KeyAction.Invoke(Define.KeyEvent.Space_KeyClick);
                         Debug.Log("Space_Clicked");
                     }
+                    // 그리고 점프키Up 이벤트를 Invoke
                     KeyAction.Invoke(Define.KeyEvent.Space_KeyUp);
                     Debug.Log("Space_Up");
                 }
+                // 그리고 점프키 정보 초기화.
                 _Space_KeyPressed = false;
                 _Space_KeyPressedTime = 0;
             }
+
+            // 움직임 인풋키에 값이 있으면
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                // 앞뒤좌우, 대각 움직임 인풋키 
+                xInput = Input.GetAxis("Horizontal");
+                zInput = Input.GetAxis("Vertical");
+                xzInput = new Vector3(xInput, 0f, zInput).normalized;
+                // 이전에 움직임키가 안눌려 있었으면 KeyDown 이벤트를 Invoke.
+                if (!_Wasd_KeyPressed)
+                {
+                    KeyAction.Invoke(Define.KeyEvent.Wasd_KeyDown);
+                    _Wasd_KeyPressedTime = Time.time;
+                    Debug.Log("Wasd_Down");
+                }
+                // 그리고 움직임키Press 이벤트를 Invoke.
+                KeyAction.Invoke(Define.KeyEvent.Wasd_KeyPress);
+                _Wasd_KeyPressed = true;
+                Debug.Log("Wasd_Pressed " + _Wasd_KeyPressed.ToString());
+            }
+            // 그렇지 않고 움직임 인풋키에 값이 안 들어왔으면
+            else
+            {
+                // 이전에 움직임키가 눌려 있었으면
+                if (_Wasd_KeyPressed)
+                {
+                    // 0.2초보다 짧게 눌렸다면 KeyClick 이벤트를 Invoke.
+                    if (Time.time < _Wasd_KeyPressedTime + 0.2f)
+                    {
+                        KeyAction.Invoke(Define.KeyEvent.Wasd_KeyClick);
+                        Debug.Log("Wasd_Clicked");
+                    }
+                    // 그리고 움직임키Up 이벤트를 Invoke.
+                    KeyAction.Invoke(Define.KeyEvent.Wasd_KeyUp);
+                    Debug.Log("Wasd_Up");
+                }
+                // 그리고 움직임키 정보 초기화.
+                _Wasd_KeyPressed = false;
+                _Wasd_KeyPressedTime = 0;
+            }
         }
 
+        // 마우스
         if (MouseAction != null)
         {
             if (Input.GetMouseButton(0))

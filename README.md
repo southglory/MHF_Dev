@@ -27,3 +27,6 @@ VR버전.
 [20230123] House에셋 카테고리 정리, InteractRaycast 레이어 변경 (Layer8 -> Layer7), 프리팹 수정, Video/gif 업로드  
 [20230123-2] Keyboard Input매니저, define 작성, forward 테스트, Video/gif 업로드  
 [20230124] Keyboard Move, jump작성. GroundController작성, 컨트롤러에서 TerrainCollider.material, CapsuleCollider.material 생성, 추가.  
+[20230125] (InputManager.cs) Keyboard WASD 방향키는 호환성을 위해 Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") 메소드를 사용.  점프키는 그대로 (Define.cs)에서 정의한 enum을 참조함.  (PlayerController.cs)에서 AddForce로 점프 구현, position으로 이동 구현함. InputManager에서 만든 xzInput벡터를 불러와서 이동할 방향벡터로 참조.  
+
+
