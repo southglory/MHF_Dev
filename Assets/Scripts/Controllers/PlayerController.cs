@@ -100,7 +100,7 @@ public class PlayerController : BaseController
                 playerRigidbody.AddForce(Vector3.up * _JumpPower, ForceMode.Impulse);
                 break;
             case Define.KeyEvent.Wasd_KeyPress:
-                playerRigidbody.position += Managers.Input.xzInput * _speed * Time.deltaTime;
+                transform.position += Managers.Input.xzInput * _speed * Time.deltaTime;
                 break;
         }
     }       

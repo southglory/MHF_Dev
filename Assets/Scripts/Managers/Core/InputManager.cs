@@ -70,8 +70,8 @@ public class InputManager
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
                 // 앞뒤좌우, 대각 움직임 인풋키 
-                xInput = Input.GetAxis("Horizontal");
-                zInput = Input.GetAxis("Vertical");
+                xInput = Input.GetAxisRaw("Horizontal");
+                zInput = Input.GetAxisRaw("Vertical");
                 xzInput = new Vector3(xInput, 0f, zInput).normalized;
                 // 이전에 움직임키가 안눌려 있었으면 KeyDown 이벤트를 Invoke.
                 if (!_Wasd_KeyPressed)
